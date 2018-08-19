@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>局部组件--父子组件传值</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <counter :count="0" v-on:change="handchange"></counter>
+    <counter :count="0" v-on:change="handchange"></counter>
+    <div>{{total}}</div>
+</div>
+<script>
+    //局部组件
+    var counter = {
+        props:['count'],
+        data:function(){
+          return {
+              number:this.count
+          }
+        },
+        template:"<div v-on:click='handclk'>{{number}}</div>",
+        methods:{
+            handclk:function(){
+                this.number ++;
+                this.$emit("change",1);
+            }
+        }
+    }
+    var vm = new Vue({
+        el:"#root",
+        data:{
+          total:0
+        },
+        components:{
+            counter:counter
+        },
+        methods:{
+            handchange:function(step){
+                this.total += step;
+            }
+        }
+    })
+</script>
+</body>
+</html>

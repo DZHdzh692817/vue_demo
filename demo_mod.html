@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>模板语法</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <p v-text="message + '你好'" v-show="is_tsw"></p>
+    <p v-html="message + 'xxx'" v-if="is_show"></p>
+    <p>{{message + ' Lee'}}</p>
+    <div>{{fullName}}</div>
+</div>
+<script>
+    var vm = new Vue({
+       el:"#root",
+       data:{
+           message:"邓志豪~",
+           is_show:false,
+           is_tsw:true,
+           firstName:"Dell",
+           lastName:"Less",
+       },
+       computed:{//计算属性
+           fullName:function(){
+               return this.firstName + " " + this.lastName;
+           }
+       }
+    });
+</script>
+</body>
+</html>

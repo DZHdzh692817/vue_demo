@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>在vue中使用插槽slot</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <child content="Hello">
+            <div slot="header">header</div>
+            <div slot="footer">footer</div>
+        </child>
+    </div>
+
+    <script>
+        Vue.component('child',{
+            props:{
+              content : String
+            },
+            template:`<div>
+                        <slot name="header"></slot>
+                        <div>{{content}}</div>
+                        <slot name="footer"></slot>
+                       </div>`,
+        })
+        var vm = new Vue({
+            el:"#root",
+        })
+    </script>
+</body>
+</html>

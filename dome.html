@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>is和ref的 组件使用</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <table>
+        <tbody>
+        <tr is="row" @change='changeClk' ref="one"></tr>
+        <tr is="row" @change='changeClk' ref="two"></tr>
+        <tr is="row" @change='changeClk' ref="three"></tr>
+        </tbody>
+    </table>
+    <div ref="myname" v-on:click="onclk">邓志豪</div>
+    <div>
+        {{total}}
+    </div>
+</div>
+
+<script>
+    //使用is属性解决模板上出现bug的问题
+    Vue.component("row",{
+        //data这里必须是个函数
+        data:function(){
+          return {
+              content:"this is a row",
+              counter:0
+          }
+        },
+        template:"<tr><td v-on:click='cntclk'>{{content}} {{counter}}</td></tr>",
+        methods:{
+            cntclk:function(){
+                this.counter++;
+                this.$emit('change');
+            }
+        }
+    });
+    var vm = new Vue({
+        el:"#app",
+        data:{
+          total:0
+        },
+        methods:{
+            onclk:function(){
+                //ref通过DOM获取
+                alert(this.$refs.myname.innerHTML);
+            },
+            changeClk:function(){
+                this.total = this.$refs.one.counter + this.$refs.two.counter + this.$refs.three.counter;
+            }
+        }
+    })
+</script>
+</body>
+</html>

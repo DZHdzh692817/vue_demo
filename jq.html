@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>TodoList jquery</title>
+</head>
+<body>
+<div id="app">
+    <input id="input" type="text" >
+    <button id="btn">提交</button>
+    <ul id="list">
+    </ul>
+</div>
+<script>
+    function Page(){
+
+    }
+    $.extend(Page.prototype,{
+        init:function(){
+            this.bindEvents()
+        },
+        bindEvents:function(){
+            var btn = $("#btn");
+            btn.on('click',$.proxy(this.handleBtnClick,this))
+        },
+        handleBtnClick:function(){
+            //var inputElen = '';
+            var inputValue = $("#input").val();
+            var ulElem  $("#list");
+            ulElem.append('<li>'+ inputValue +'</li>');
+            $("#input").val('');
+        }
+    })
+</script>
+</body>
+</html>

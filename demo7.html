@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>在vue中的作用域插槽slot</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <child>
+            <template slot-scope="itms">
+                <li>{{itms.item}}</li>
+            </template>
+        </child>
+    </div>
+    <script>
+        Vue.component("child",{
+            data:function () {
+                return {
+                    list:[1,2,3,4]
+                }
+            },
+            template:'<div>' +
+                        '<ul>' +
+                           '<slot v-for="item of list" :item="item"></slot>' +
+                        '</ul>' +
+                       '</div>'
+        })
+        var vm = new Vue({
+            el:"#root"
+        })
+    </script>
+</body>
+</html>

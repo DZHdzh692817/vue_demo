@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>动态组件与v-once指令</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 动态组件component是vue自带的组件 v-once放在内存里的-->
+        <component :is="style"></component>
+
+        <child-one v-if="type === 'child-one'"></child-one>
+        <child-two v-if="type === 'child-two'"></child-two>
+        <button v-on:click="oncld">change</button>
+    </div>
+
+    <script>
+        Vue.component("child-one",{
+            template:"<div v-once>child-one</div>"
+        })
+        Vue.component("child-two",{
+            template:"<div v-once>child-two</div>"
+        })
+
+        Vue.component("father-one",{
+            template:"<div>father-one</div>"
+        })
+        Vue.component("father-two",{
+            template:"<div>father-two</div>"
+        })
+
+        var vm = new Vue({
+            el:"#root",
+            data:{
+                type:'child-one',
+                style:'father-one'
+            },
+            methods:{
+                oncld:function(){
+                    this.type = (this.type === 'child-one' ? 'child-two' : 'child-one');
+                    this.style = (this.style === 'father-one' ? 'father-two' : 'father-one');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
